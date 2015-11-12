@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<title>Quotes</title>
+	<link href='http://fonts.googleapis.com/css?family=EB+Garamond' rel='stylesheet' type='text/css'>
+	<style type="text/css">
+		h1 {
+			font-family: 'Helvetica Neue', sans-serif;
+		}
+		h2 {
+			font-family: 'EB Garamond', serif;
+			font-style: italic;
+		}
+	</style>
+	</head>
+	<body>
+	<div>
+		<h1>Real(est) Quote of the Day:</h1>
+	</div>
+	<div class="quote_box">
+		<h2 class="quote"></h2>
+	</div>
+	<div>
+		<button class="refresh_page">Refresh</button>
+	</div>
+	<div>
+		<form>
+			<input type="text" name="add" placeholder="Add Your Own">
+		</form>
+	</div>
+	</body>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script type="text/javascript">
+		var quotes = [
+			"If you took all the veins in a person's body and tied them from end to end, the person would die. - Niel DeGrasse Tyson",
+			"TBH Bae, IDGAF - Rhett Butler",
+			"Aaron Burr can go f*ck himself. - Alexander Hamilton",
+			"Use the Force, Harry. - Gandalf"
+		];
+
+		var showQuote = function () {
+			var randNumber = Math.floor(Math.random() * quotes.length);
+		  $('.quote').text(quotes[randNumber]);
+		}
+		showQuote();
+
+		$('.refresh_page').click(showQuote);
+
+		$('form').on('submit', function(event) {
+			event.preventDefault();
+			var newQuote = $('input:text').val();
+			quotes.push(newQuote);
+			showQuote();
+		});
+	</script>
+</html>

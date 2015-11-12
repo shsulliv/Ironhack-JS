@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<div class="container">
+		<h2 class="current-phrase"></h2>
+		<p class="hide-show"><a href="">Hide/Show</a></p>
+		<p class="remove"><a href="">Remove This Phrase</a></p>
+	</div>
+	<form>
+		<input type="text" name="phrase-form" placeholder="Add Your Own Phrase Here">
+	</form>
+	<button class="refresh">Refresh</button>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+<script type="text/javascript">
+
+	var $current = $('.current-phrase');
+
+	var phrases = [
+		"If you took all the veins in a person's body and tied them from end to end, the person would die. - Niel DeGrasse Tyson",
+		"TBH Bae, IDGAF - Rhett Butler",
+		"Aaron Burr can go f*ck himself. - Alexander Hamilton",
+		"Use the Force, Harry. - Gandalf"
+	];
+
+	function showPhrase () {
+		var num = Math.floor(Math.random() * phrases.length);
+		var nextPhrase = phrases[num] || "None left!";
+
+		$($current).html(nextPhrase);
+	}
+
+	showPhrase();
+
+	$('button.refresh').on('click', function (event) {
+		event.preventDefault();
+
+		showPhrase();
+	});
+
+	$('form').on('submit', function (event) {
+		event.preventDefault();
+
+		var $newest = $('input[name=phrase-form]').val();
+
+		phrases.push($newest);
+
+		$('input[name=phrase-form]').val('');
+	});
+
+	$('p.hide-show').on('click', function (event) {
+		event.preventDefault();
+
+		$current.toggle();
+	});
+
+	$('p.remove').on('click', function (event) {
+		event.preventDefault();
+
+		var deleted = $current.text();
+
+		phrases = phrases.filter(function (result) {
+			return result != deleted;
+		});
+
+		showPhrase();
+	});
+
+</script>
+</html>
